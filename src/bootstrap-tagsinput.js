@@ -45,11 +45,11 @@
     this.isSelect = (element.tagName === 'SELECT');
     this.multiple = (this.isSelect && element.hasAttribute('multiple'));
     this.objectItems = options && options.itemValue;
-    this.placeholderText = element.hasAttribute('placeholder') ? this.$element.attr('placeholder') : '';
-    this.inputSize = Math.max(1, this.placeholderText.length);
 
     this.$container = $('<div class="bootstrap-tagsinput"></div>');
-    this.$input = $('<input type="text" placeholder="' + this.placeholderText + '"/>').appendTo(this.$container);
+    this.$input = $('<input type="text" />').appendTo(this.$container);
+
+    this.updatePlaceholder(element.hasAttribute('placeholder') ? this.$element.attr('placeholder') : '');
 
     this.$element.before(this.$container);
 
@@ -59,6 +59,12 @@
 
   TagsInput.prototype = {
     constructor: TagsInput,
+
+    updatePlaceholder: function(placeholder) {
+        this.placeholderText = placeholder || '';
+        this.inputSize = Math.max(1, this.placeholderText.length);
+        this.$input.attr("placeholder", this.placeholderText);
+    },
 
     /**
      * Adds the given item as a new tag. Pass true to dontPushVal to prevent
