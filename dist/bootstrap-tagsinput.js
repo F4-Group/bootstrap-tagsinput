@@ -69,6 +69,7 @@
         this.placeholderText = placeholder || '';
         this.inputSize = Math.max(1, this.placeholderText.length);
         this.$input.attr("placeholder", this.placeholderText);
+        this._resetInternalInputSize(this.$input);
     },
 
     /**
@@ -465,10 +466,7 @@
          }
 
         // Reset internal input's size
-        var textLength = $input.val().length,
-            wordSpace = Math.ceil(textLength / 5),
-            size = textLength + wordSpace + 1;
-        $input.attr('size', Math.max(this.inputSize, size));
+        this._resetInternalInputSize($input);
       }, self));
 
       self.$container.on('keypress', 'input', $.proxy(function(event) {
@@ -495,10 +493,7 @@
          }
 
          // Reset internal input's size
-         var textLength = $input.val().length,
-            wordSpace = Math.ceil(textLength / 5),
-            size = textLength + wordSpace + 1;
-         $input.attr('size', Math.max(this.inputSize, size));
+         this._resetInternalInputSize($input);
       }, self));
 
       // Remove icon clicked
@@ -523,6 +518,14 @@
           });
         }
       }
+    },
+
+    _resetInternalInputSize: function($input) {
+        var textLength = $input.val().length,
+            wordSpace = Math.ceil(textLength / 5),
+            size = textLength + wordSpace + 1;
+        console.log("final size",size);
+        $input.attr('size', Math.max(this.inputSize, size));
     },
 
     /**
