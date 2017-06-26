@@ -524,7 +524,6 @@
         var textLength = $input.val().length,
             wordSpace = Math.ceil(textLength / 5),
             size = textLength + wordSpace + 1;
-        console.log("final size",size);
         $input.attr('size', Math.max(this.inputSize, size));
     },
 
